@@ -12,7 +12,8 @@ export class HandleError {
     if (error instanceof AppError) {
       return res.status(error.statusCode).json({ message: error.message });
     } else if (error instanceof ZodError) {
-      return res.status(400).json(error);
+      const data = {errors: error.issues}
+      return res.status(400).json(data);
     } else {
       console.log(error);
       return res.status(500).json({ message: "Internal server error." });
