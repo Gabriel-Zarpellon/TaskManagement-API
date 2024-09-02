@@ -14,7 +14,7 @@ export class TaskControllers implements iTaskControllers {
   }
 
   async findMany(req: Request, res: Response): Promise<Response> {
-    const response = await this.taskServices.findMany();
+    const response = await this.taskServices.findMany(req.query.category as string);
 
     return res.status(200).json(response);
   }
