@@ -7,7 +7,7 @@
     "dev": "dotenv -e ./.env.dev -- tsnd --cls --rs --respawn src/server.ts",
     "migrate:dev": "dotenv -e ./.env.dev -- npx prisma migrate dev",
     "test": "dotenv -e ./.env.test -- vitest",
-    "migrate:test": "dotenv -e ./.env.test -- npx prisma migrate test"
+    "migrate:test": "dotenv -e ./.env.test -- npx prisma migrate dev"
   },
   "keywords": [],
   "author": "",
