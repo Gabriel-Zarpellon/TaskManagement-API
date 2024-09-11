@@ -4,6 +4,7 @@ import "express-async-errors";
 import { taskRouter } from "./routes/task.routes";
 import { HandleError } from "./middlewares/handleError.middleware";
 import { categoryRouter } from "./routes/category.routes";
+import { userRouter } from "./routes/user.routes";
 
 export const app = express();
 
@@ -14,5 +15,7 @@ app.use(helmet());
 app.use("/tasks", taskRouter);
 
 app.use("/categories", categoryRouter);
+
+app.use("/users", userRouter);
 
 app.use(HandleError.execute);
