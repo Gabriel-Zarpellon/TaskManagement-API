@@ -10,7 +10,9 @@ export class CategoryControllers implements iCategoryControllers {
   ) {}
 
   async create(req: Request, res: Response): Promise<Response> {
-    const response = await this.categoryServices.create(req.body);
+    const id = res.locals.decode.id;
+
+    const response = await this.categoryServices.create(req.body, id);
 
     return res.status(201).json(response);
   }

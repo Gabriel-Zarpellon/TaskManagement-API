@@ -8,13 +8,16 @@ export class TaskControllers implements iTaskControllers {
   constructor(@inject("TaskServices") private taskServices: TaskServices) {}
 
   async create(req: Request, res: Response): Promise<Response> {
-    const response = await this.taskServices.create(req.body);
+    const id = res.locals.decode.id;
+
+    const response = await this.taskServices.create(req.body, id);
 
     return res.status(201).json(response);
   }
 
   async findMany(req: Request, res: Response): Promise<Response> {
-    const response = await this.taskServices.findMany(req.query.category as string);
+    const id = res.locals.decode.id;
+    const response = await this.taskServices.findMany(id, req.query.category as string);
 
     return res.status(200).json(response);
   }
@@ -35,7 +38,7 @@ export class TaskControllers implements iTaskControllers {
   }
 
   async delete(req: Request, res: Response): Promise<Response> {
-    const response = await this.taskServices.delete(Number(req.params.id));
+    await this.taskServices.delete(Number(req.params.id));
 
     return res.status(204).json();
   }
