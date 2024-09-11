@@ -12,25 +12,29 @@ import { iTaskServices } from "../interfaces/task.interface";
 
 @injectable()
 export class TaskServices implements iTaskServices {
-  async create(body: tTaskBody): Promise<tTaskReturn> {
+  async create(body: tTaskBody, id: number): Promise<tTaskReturn> {
     const data = await prisma.task.create({
-      data: body,
+      data: { ...body, userId: id },
     });
 
     return data;
   }
 
-  async findMany(categoryName?: string): Promise<tTask[]> {
+  async findMany(userId: number, categoryName?: string): Promise<tTask[]> {
     if (categoryName) {
-      const data = await prisma.task.findMany({
+      const categories = await prisma.task.findMany({
         where: { category: { name: categoryName } },
         include: { category: true },
       });
 
+      const data = categories.filter((category) => category.userId == userId);
+
       return taskSchema.array().parse(data);
     }
 
-    const data = await prisma.task.findMany({ include: { category: true } });
+    const tasks = await prisma.task.findMany({ include: { category: true } });
+
+    const data = tasks.filter((task) => task.userId == userId);
 
     return taskSchema.array().parse(data);
   }
