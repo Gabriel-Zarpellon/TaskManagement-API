@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { tCategory, tCategoryBody } from "../schemas/category.schema";
 
 export interface iCategoryServices {
-  create(body: tCategoryBody): Promise<tCategory>;
+  create(body: tCategoryBody, userId: number): Promise<tCategory>;
   delete(id: number): Promise<void>;
 }
 
