@@ -6,8 +6,8 @@ import { injectable } from "tsyringe";
 
 @injectable()
 export class CategoryServices implements iCategoryServices {
-  async create(body: tCategoryBody): Promise<tCategory> {
-    const data = await prisma.category.create({ data: body });
+  async create(body: tCategoryBody, userId: number): Promise<tCategory> {
+    const data = await prisma.category.create({ data: {...body, userId: userId} });
 
     return data;
   }
