@@ -1,4 +1,4 @@
-import { hash } from "bcryptjs";
+import { hash } from "bcrypt";
 import { describe, expect, it } from "vitest";
 import { prisma } from "../../../database/prisma";
 import { userMock } from "../../mocks/user.mocks";
@@ -15,7 +15,7 @@ const loginUserBeforeEach = async () => {
 };
 
 describe("login user", () => {
-  it("should be able de login correctly", async () => {
+  it("should be able to login correctly", async () => {
     const { registerUser } = await loginUserBeforeEach();
 
     const credentials = {
