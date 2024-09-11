@@ -5,10 +5,13 @@ import { taskRouter } from "./routes/task.routes";
 import { HandleError } from "./middlewares/handleError.middleware";
 import { categoryRouter } from "./routes/category.routes";
 import { userRouter } from "./routes/user.routes";
+import cors from "cors";
 
 export const app = express();
 
 app.use(json());
+
+app.use(cors());
 
 app.use(helmet());
 
