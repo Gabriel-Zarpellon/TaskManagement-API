@@ -30,6 +30,8 @@ Padrão de corpo
 }
 ```
 
+Padrão de resposta (STATUS 201)
+
 ```json
 {
   "id": 1,
