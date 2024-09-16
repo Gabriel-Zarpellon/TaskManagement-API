@@ -7,8 +7,6 @@ export class ValidateToken {
     const authorization = req.headers.authorization;
 
     const token = authorization?.replace("Bearer ", "");
-    console.log(token);
-    
 
     if (!token) {
       throw new AppError(401, "Token is required");
