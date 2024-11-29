@@ -1,11 +1,16 @@
 import { Request, Response } from "express";
-import { tTask, tTaskBody, tTaskReturn, tTaskUpdateBody } from "../schemas/task.schema";
+import {
+  tTask,
+  tTaskBody,
+  tTaskReturn,
+  tTaskUpdate,
+} from "../schemas/task.schema";
 
 export interface iTaskServices {
-  create(body: tTaskBody, id: number): Promise<tTaskReturn>;
-  findMany(userId: number, categoryName?: string): Promise<tTask[]>;
-  findOne(id: number): Promise<tTask>;
-  update(id: number, body: tTaskUpdateBody): Promise<tTaskReturn>;
+  create(body: tTaskBody, id: number): Promise<tTask>;
+  findMany(userId: number, categoryName?: string): Promise<tTaskReturn[]>;
+  findOne(id: number): Promise<tTaskReturn>;
+  update(id: number, body: tTaskUpdate): Promise<tTask>;
   delete(id: number): Promise<void>;
 }
 

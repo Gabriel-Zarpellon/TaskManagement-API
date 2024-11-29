@@ -1,18 +1,18 @@
 import { injectable } from "tsyringe";
 import "reflect-metadata";
 import {
-  taskSchema,
+  taskReturnSchema,
   tTask,
   tTaskBody,
   tTaskReturn,
-  tTaskUpdateBody,
+  tTaskUpdate,
 } from "../schemas/task.schema";
 import { prisma } from "../database/prisma";
 import { iTaskServices } from "../interfaces/task.interface";
 
 @injectable()
 export class TaskServices implements iTaskServices {
-  async create(body: tTaskBody, id: number): Promise<tTaskReturn> {
+  async create(body: tTaskBody, id: number): Promise<tTask> {
     const data = await prisma.task.create({
       data: { ...body, userId: id },
     });
@@ -20,7 +20,10 @@ export class TaskServices implements iTaskServices {
     return data;
   }
 
-  async findMany(userId: number, categoryName?: string): Promise<tTask[]> {
+  async findMany(
+    userId: number,
+    categoryName?: string
+  ): Promise<tTaskReturn[]> {
     if (categoryName) {
       const categories = await prisma.task.findMany({
         where: { category: { name: categoryName } },
@@ -29,26 +32,26 @@ export class TaskServices implements iTaskServices {
 
       const data = categories.filter((category) => category.userId == userId);
 
-      return taskSchema.array().parse(data);
+      return taskReturnSchema.array().parse(data);
     }
 
     const tasks = await prisma.task.findMany({ include: { category: true } });
 
     const data = tasks.filter((task) => task.userId == userId);
 
-    return taskSchema.array().parse(data);
+    return taskReturnSchema.array().parse(data);
   }
 
-  async findOne(id: number): Promise<tTask> {
+  async findOne(id: number): Promise<tTaskReturn> {
     const data = await prisma.task.findFirst({
       where: { id },
       include: { category: true },
     });
 
-    return taskSchema.parse(data);
+    return taskReturnSchema.parse(data);
   }
 
-  async update(id: number, body: tTaskUpdateBody): Promise<tTaskReturn> {
+  async update(id: number, body: tTaskUpdate): Promise<tTask> {
     const data = await prisma.task.update({ where: { id }, data: { ...body } });
 
     return data;
