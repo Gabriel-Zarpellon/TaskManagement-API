@@ -6,24 +6,23 @@ export const taskSchema = z.object({
   title: z.string().min(1),
   content: z.string().min(1),
   finished: z.boolean().default(false),
-  category: categorySchema.nullable(),
+  categoryId: z.number().positive().optional().nullable(),
 });
+
+export const taskReturnSchema = taskSchema
+  .extend({
+    category: categorySchema.nullable(),
+  })
+  .omit({ categoryId: true });
+
+export const taskBodySchema = taskSchema.omit({ id: true });
+
+export const taskUpdateSchema = taskSchema.omit({ id: true }).partial();
 
 export type tTask = z.infer<typeof taskSchema>;
 
-export const taskReturnSchema = taskSchema
-  .omit({ category: true })
-  .extend({ categoryId: z.number().positive().optional().nullable() });
-
 export type tTaskReturn = z.infer<typeof taskReturnSchema>;
-
-export const taskBodySchema = taskReturnSchema.omit({
-  id: true,
-  finished: true,
-});
 
 export type tTaskBody = z.infer<typeof taskBodySchema>;
 
-export const taskUpdateSchema = taskReturnSchema.omit({ id: true }).partial();
-
-export type tTaskUpdateBody = z.infer<typeof taskUpdateSchema>;
+export type tTaskUpdate = z.infer<typeof taskUpdateSchema>;
