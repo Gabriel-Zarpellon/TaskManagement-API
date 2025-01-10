@@ -283,7 +283,7 @@ STATUS (409) quando o corpo não é compatível com o padrão
 
 ### Excluir tarefa PATCH /tasks/:id
 
-Está rota não tem um corpo de resposta (STATUS: 204)
+Esta rota não tem um corpo de resposta (STATUS: 204)
 
 #### Possíveis erros:
 
