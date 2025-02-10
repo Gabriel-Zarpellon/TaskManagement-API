@@ -209,7 +209,7 @@ STATUS (404) - Categoria inválida
 }
 ```
 
-### Leitura de individual GET /tasks/:1
+### Leitura de tarefa individual GET /tasks/:1
 
 Padrão de resposta (STATUS: 200)
 
@@ -281,7 +281,7 @@ STATUS (404) - Categoria inválida
 
 STATUS (409) quando o corpo não é compatível com o padrão
 
-### Excluir tarefa PATCH /tasks/:id
+### Excluir tarefa DELETE /tasks/:id
 
 Esta rota não tem um corpo de resposta (STATUS: 204)
 
